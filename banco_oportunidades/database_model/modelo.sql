@@ -1,52 +1,59 @@
--- Script SQL para criação do banco de dados no MySQL Workbench.
-CREATE DATABASE banco_oportunidades CHARACTER SET utf8mb4;
-USE banco_oportunidades;
+CREATE SCHEMA BancoOportunidades CHARACTER SET utf8mb4;
+USE BancoOportunidades;
 
--- Tabela de usuários
-CREATE TABLE usuarios (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(100),
-  email VARCHAR(100) UNIQUE,
-  cpf VARCHAR(11) UNIQUE,
-  senha VARCHAR(255),
-  tipo ENUM('prestador','cliente')
+CREATE TABLE Usuarios (
+
+	idUsuario INT AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(100),
+	email VARCHAR(100) UNIQUE,
+	senha_hash VARCHAR(255),
+	cpf_cnpj VARCHAR(20),
+	tipoUsuario ENUM('prestador','cliente','admin'),
+	telefone VARCHAR(20),
+	endereco VARCHAR(255),
+	cidade VARCHAR(100),
+	uf CHAR(2),
+    dataCadastro DATETIME DEFAULT CURRENT_TIMESTAMP
+
 );
 
--- Tabela de categorias
-CREATE TABLE categorias (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(100),
-  descricao VARCHAR(255)
+CREATE TABLE Categorias (
+
+	idCategoria int not null auto_increment primary key,
+	nomeCategoria varchar (100),
+    descricaoCategoria varchar (255)
+    
 );
 
--- Tabela de serviços
-CREATE TABLE servicos (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE Servicos (
+
+  idServico INT AUTO_INCREMENT PRIMARY KEY,
+  idUsuario INT,
+  idCategoria INT,
   titulo VARCHAR(100),
   descricao TEXT,
-  valor DECIMAL(10,2),
-  categoria_id INT,
-  prestador_id INT,
-  FOREIGN KEY (categoria_id) REFERENCES categorias(id),
-  FOREIGN KEY (prestador_id) REFERENCES usuarios(id)
+  preco DECIMAL(10,2),
+  cidade VARCHAR(100),
+  status ENUM('ativo','inativo'),
+  dataCriacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (idUsuario) REFERENCES Usuarios(idUsuario),
+  FOREIGN KEY (idCategoria) REFERENCES Categorias(idCategoria)
+  
 );
 
--- Tabela de transações
-CREATE TABLE transacoes (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  cliente_id INT,
-  servico_id INT,
-  valor DECIMAL(10,2),
-  status ENUM('pendente','concluido','cancelado'),
-  FOREIGN KEY (cliente_id) REFERENCES usuarios(id),
-  FOREIGN KEY (servico_id) REFERENCES servicos(id)
+CREATE TABLE Transacoes (
+
+  idTransacao INT AUTO_INCREMENT PRIMARY KEY,
+  idServico INT,
+  idCliente INT,
+  dataSolicitacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+  valorPago DECIMAL(10,2),
+  status ENUM('pendente','em_andamento','concluido','cancelado'),
+  avaliacao INT,
+  FOREIGN KEY (idServico) REFERENCES Servicos(idServico),
+  FOREIGN KEY (idCliente) REFERENCES Usuarios(idUsuario)
+  
 );
 
--- Tabela de avaliações
-CREATE TABLE avaliacoes (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  transacao_id INT,
-  nota INT,
-  comentario TEXT,
-  FOREIGN KEY (transacao_id) REFERENCES transacoes(id)
-);
+
+
