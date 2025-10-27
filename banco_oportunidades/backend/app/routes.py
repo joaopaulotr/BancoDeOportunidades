@@ -1,7 +1,10 @@
 # routes.py
 # Rotas da aplicação FastAPI
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from .database import get_db
+from .models import Usuario, Servico, Transacao, Categoria
 
 router = APIRouter()
 
@@ -12,8 +15,8 @@ def home():
 # ================================== CRUD USUARIOS =================================
 
 @router.get("/usuarios")
-def get_usuarios():
-    return [{"id": 1, "nome": "João"}, {"id": 2, "nome": "Maria"}]
+def get_usuarios(db: Session = Depends(get_db)):
+    return db.query(Usuario).all()
 #------------------------------------------------------------------------------
 @router.post("/usuarios")
 def create_usuario(usuario: dict):
@@ -37,8 +40,8 @@ def delete_usuario(id: int):
 # ================================== CRUD SERVIÇOS =================================
 
 @router.get("/servicos")
-def get_servicos():
-    return [{"id": 1, "titulo": "Serviço Exemplo", "valor": 100.00}]
+def get_servicos(db: Session = Depends(get_db)):
+    return db.query(Servico).all()
 #------------------------------------------------------------------------------
 @router.post("/servicos")
 def create_servico(servico: dict):
@@ -61,8 +64,8 @@ def delete_servico(id: int):
 # ================================== CRUD TRANSAÇÕES =============================
 
 @router.get("/transacoes")
-def get_transacoes():
-    return [{"id": 1, "servico_id": 1, "valor": 100.00, "status": "pendente"}]
+def get_transacoes(db: Session = Depends(get_db)):
+    return db.query(Transacao).all()
 #------------------------------------------------------------------------------
 @router.post("/transacoes")
 def create_transacao(transacao: dict):
@@ -84,8 +87,8 @@ def delete_transacao(id: int):
 
 # ================================== CRUD CATEGORIAS =============================
 @router.get("/categorias")
-def get_categorias():
-    return [{"id": 1, "nome": "Categoria Exemplo"}]
+def get_categorias(db: Session = Depends(get_db)):
+    return db.query(Categoria).all()
 #------------------------------------------------------------------------------
 @router.post("/categorias")
 def create_categoria(categoria: dict):

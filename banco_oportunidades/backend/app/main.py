@@ -2,9 +2,10 @@
 # Ponto de entrada da API FastAPI
 
 from fastapi import FastAPI
-from . import routes
+
+from .routes import router
 
 app = FastAPI()
 
-app.include_router(routes.router)
+app.include_router(router)
 
