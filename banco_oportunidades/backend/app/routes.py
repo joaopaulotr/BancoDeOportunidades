@@ -4,6 +4,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from .database import get_db
+from pydantic import BaseModel
 from .models import Usuario, Servico, Transacao, Categoria
 
 router = APIRouter()
@@ -18,9 +19,36 @@ def home():
 def get_usuarios(db: Session = Depends(get_db)):
     return db.query(Usuario).all()
 #------------------------------------------------------------------------------
+
+class CreateUsuario(BaseModel):
+    nome: str
+    email: str
+    senha_hash: str
+    cpf_cnpj: str
+    tipoUsuario: str
+    telefone: str
+    endereco: str
+    cidade: str
+    uf: str
+
+
 @router.post("/usuarios")
-def create_usuario(usuario: dict):
-    return {"msg": "Usuário criado", "usuario": usuario}
+def create_usuario(usuario: CreateUsuario, db: Session = Depends(get_db)):
+    novo_usuario = Usuario(
+        nome=usuario.nome,
+        email=usuario.email,
+        senha_hash=usuario.senha_hash,
+        cpf_cnpj=usuario.cpf_cnpj,
+        tipoUsuario=usuario.tipoUsuario,
+        telefone=usuario.telefone,
+        endereco=usuario.endereco,
+        cidade=usuario.cidade,
+        uf=usuario.uf
+    )
+    db.add(novo_usuario)
+    db.commit()
+    db.refresh(novo_usuario)
+    return {"msg": "Usuário criado", "id": novo_usuario.idUsuario, "nome": novo_usuario.nome}
 #------------------------------------------------------------------------------
 @router.get("/usuarios/{id}")
 def get_usuario(id: int):
