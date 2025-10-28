@@ -1,6 +1,7 @@
 # routes.py
 # Rotas da aplicação FastAPI
 
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from .database import get_db
@@ -31,7 +32,6 @@ class CreateUsuario(BaseModel):
     cidade: str
     uf: str
 
-
 @router.post("/usuarios")
 def create_usuario(usuario: CreateUsuario, db: Session = Depends(get_db)):
     novo_usuario = Usuario(
@@ -49,6 +49,7 @@ def create_usuario(usuario: CreateUsuario, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(novo_usuario)
     return {"msg": "Usuário criado", "id": novo_usuario.idUsuario, "nome": novo_usuario.nome}
+
 #------------------------------------------------------------------------------
 @router.get("/usuarios/{id}")
 def get_usuario(id: int):
@@ -71,9 +72,33 @@ def delete_usuario(id: int):
 def get_servicos(db: Session = Depends(get_db)):
     return db.query(Servico).all()
 #------------------------------------------------------------------------------
+
+class CreateServico(BaseModel):
+    idServico: str
+    idUsuario: str
+    idCategoria: str
+    titulo: str
+    descricao: str
+    preco: str
+    cidade: str
+    status: str
+
 @router.post("/servicos")
-def create_servico(servico: dict):
-    return {"msg": "Serviço criado", "servico": servico}
+def create_servico(servico: CreateServico, db: Session = Depends(get_db)):
+    novo_servico = Servico(
+        idServico=servico.idServico,
+        idUsuario=servico.idUsuario,
+        idCategoria=servico.idCategoria,
+        titulo=servico.titulo,
+        descricao=servico.descricao,
+        preco=servico.preco,
+        cidade=servico.cidade,
+        status=servico.status
+    )
+    db.add(novo_servico)
+    db.commit()
+    db.refresh(novo_servico)
+    return {"msg": "Serviço criado", "id": novo_servico.idServico, "titulo": novo_servico.titulo}
 #------------------------------------------------------------------------------
 @router.get("/servicos/{id}")
 def get_servico(id: int):
@@ -95,9 +120,30 @@ def delete_servico(id: int):
 def get_transacoes(db: Session = Depends(get_db)):
     return db.query(Transacao).all()
 #------------------------------------------------------------------------------
+class CreateTransacao(BaseModel):
+    idTransacao: str
+    idServico: str
+    idCliente: str
+    dataSolicitacao: str
+    valorPago: str
+    status: str
+    avaliacao: str
+
 @router.post("/transacoes")
-def create_transacao(transacao: dict):
-    return {"msg": "Transação criada", "transacao": transacao}
+def create_transacao(transacao: CreateTransacao, db: Session = Depends(get_db)):
+    nova_transacao = Transacao(
+        idTransacao=transacao.idTransacao,
+        idServico=transacao.idServico,
+        idCliente=transacao.idCliente,
+        dataSolicitacao=transacao.dataSolicitacao,
+        valorPago=transacao.valorPago,
+        status=transacao.status,
+        avaliacao=transacao.avaliacao
+    )
+    db.add(nova_transacao)
+    db.commit()
+    db.refresh(nova_transacao)
+    return {"msg": "Transação criada", "id": nova_transacao.idTransacao}
 #------------------------------------------------------------------------------
 @router.get("/transacoes/{id}")
 def get_transacao(id: int):
@@ -118,9 +164,22 @@ def delete_transacao(id: int):
 def get_categorias(db: Session = Depends(get_db)):
     return db.query(Categoria).all()
 #------------------------------------------------------------------------------
+class CreateCategoria(BaseModel):
+    idCategoria: str
+    nomeCategoria: str
+    descricaoCategoria: str
+
 @router.post("/categorias")
-def create_categoria(categoria: dict):
-    return {"msg": "Categoria criada", "categoria": categoria}
+def create_categoria(categoria: CreateCategoria, db: Session = Depends(get_db)):
+    nova_categoria = Categoria(
+        idCategoria=categoria.idCategoria,
+        nomeCategoria=categoria.nomeCategoria,
+        descricaoCategoria=categoria.descricaoCategoria
+    )
+    db.add(nova_categoria)
+    db.commit()
+    db.refresh(nova_categoria)
+    return {"msg": "Categoria criada", "id": nova_categoria.idCategoria}
 #------------------------------------------------------------------------------
 @router.get("/categorias/{id}")
 def get_categoria(id: int):
