@@ -52,16 +52,21 @@ def create_usuario(usuario: CreateUsuario, db: Session = Depends(get_db)):
 
 #------------------------------------------------------------------------------
 @router.get("/usuarios/{id}")
-def get_usuario(id: int):
-    return {"id": id, "nome": "Usuário Exemplo"}
+def get_usuario(id: int, db: Session = Depends(get_db)):
+    return db.query(Usuario).filter(Usuario.idUsuario == id).first()
 #------------------------------------------------------------------------------
 @router.put("/usuarios/{id}")
 def update_usuario(id: int, usuario: dict):
     return {"msg": "Usuário atualizado", "id": id, "usuario": usuario}
 #------------------------------------------------------------------------------
 @router.delete("/usuarios/{id}")
-def delete_usuario(id: int):
-    return {"msg": "Usuário deletado", "id": id}
+def delete_usuario(id: int, db: Session = Depends(get_db)):
+    usuario = db.query(Usuario).filter(Usuario.idUsuario == id).first()
+    if usuario:
+        db.delete(usuario)
+        db.commit()
+        return {"msg": "Usuário deletado", "id": id}
+    return {"msg": "Usuário não encontrado", "id": id}
 
 
 # ================================== FIM CRUD USUARIOS =============================
@@ -109,8 +114,13 @@ def update_servico(id: int, servico: dict):
     return {"msg": "Serviço atualizado", "id": id, "servico": servico}
 #------------------------------------------------------------------------------
 @router.delete("/servicos/{id}")
-def delete_servico(id: int):
-    return {"msg": "Serviço deletado", "id": id}
+def delete_servico(id: int, db: Session = Depends(get_db)):
+    servico = db.query(Servico).filter(Servico.idServico == id).first()
+    if servico:
+        db.delete(servico)
+        db.commit()
+        return {"msg": "Serviço deletado", "id": id}
+    return {"msg": "Serviço não encontrado", "id": id}
 
 # ================================== FIM CRUD SERVIÇOS =============================
 
@@ -146,16 +156,21 @@ def create_transacao(transacao: CreateTransacao, db: Session = Depends(get_db)):
     return {"msg": "Transação criada", "id": nova_transacao.idTransacao}
 #------------------------------------------------------------------------------
 @router.get("/transacoes/{id}")
-def get_transacao(id: int):
-    return {"id": id, "servico_id": 1, "valor": 100.00, "status": "pendente"}
+def get_transacao(id: int, db: Session = Depends(get_db)):
+    return db.query(Transacao).filter(Transacao.idTransacao == id).first()
 #------------------------------------------------------------------------------
 @router.put("/transacoes/{id}")
 def update_transacao(id: int, transacao: dict):
     return {"msg": "Transação atualizada", "id": id, "transacao": transacao}
 #------------------------------------------------------------------------------
 @router.delete("/transacoes/{id}")
-def delete_transacao(id: int):
-    return {"msg": "Transação deletada", "id": id}
+def delete_transacao(id: int, db: Session = Depends(get_db)):
+    transacao = db.query(Transacao).filter(Transacao.idTransacao == id).first()
+    if transacao:
+        db.delete(transacao)
+        db.commit()
+        return {"msg": "Transação deletada", "id": id}
+    return {"msg": "Transação não encontrada", "id": id}
 
 # ================================== FIM CRUD TRANSAÇÕES ==========================
 
@@ -182,15 +197,20 @@ def create_categoria(categoria: CreateCategoria, db: Session = Depends(get_db)):
     return {"msg": f"Categoria {nova_categoria.nomeCategoria} criada", "id": nova_categoria.idCategoria}
 #------------------------------------------------------------------------------
 @router.get("/categorias/{id}")
-def get_categoria(id: int):
-    return {"id": id, "nome": "Categoria Exemplo"}
+def get_categoria(id: int, db: Session = Depends(get_db)):
+    return db.query(Categoria).filter(Categoria.idCategoria == id).first()
 #------------------------------------------------------------------------------
 @router.put("/categorias/{id}")
 def update_categoria(id: int, categoria: dict):
     return {"msg": "Categoria atualizada", "id": id, "categoria": categoria}
 #------------------------------------------------------------------------------
 @router.delete("/categorias/{id}")
-def delete_categoria(id: int):
-    return {"msg": "Categoria deletada", "id": id}
+def delete_categoria(id: int, db: Session = Depends(get_db)):
+    categoria = db.query(Categoria).filter(Categoria.idCategoria == id).first()
+    if categoria:
+        db.delete(categoria)
+        db.commit()
+        return {"msg": "Categoria deletada", "id": id}
+    return {"msg": "Categoria não encontrada", "id": id}
 
 # ================================== FIM CRUD CATEGORIAS ==========================
