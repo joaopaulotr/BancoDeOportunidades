@@ -179,7 +179,7 @@ def create_categoria(categoria: CreateCategoria, db: Session = Depends(get_db)):
     db.add(nova_categoria)
     db.commit()
     db.refresh(nova_categoria)
-    return {"msg": "Categoria criada", "id": nova_categoria.idCategoria}
+    return {"msg": f"Categoria {nova_categoria.nomeCategoria} criada", "id": nova_categoria.idCategoria}
 #------------------------------------------------------------------------------
 @router.get("/categorias/{id}")
 def get_categoria(id: int):
