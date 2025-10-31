@@ -1,7 +1,6 @@
-<!-- src/App.vue
-Arquivo principal do Vue.
-- Deve conter o <router-view> e o layout base da aplicação.
--->
+
 <template>
-  <router-view />
+  <div id="app">
+    <router-view />  <!-- aqui o Vue mostra Cadastro, Home ou Serviços -->
+  </div>
 </template>

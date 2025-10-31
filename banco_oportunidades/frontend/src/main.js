@@ -1,7 +1,10 @@
-// src/main.js
-// Ponto de entrada do app Vue.js.
-// Deve conter:
-// - Importação do createApp
-// - Importação do router e Pinia
-// - Importação global do PrimeVue
-// - Montagem do app.
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import './style.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+
+createApp(App)
+  .use(router)
+  .mount('#app')
