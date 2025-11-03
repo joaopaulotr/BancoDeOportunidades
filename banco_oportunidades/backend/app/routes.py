@@ -2,7 +2,7 @@
 # Rotas da aplicação FastAPI
 
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from .database import get_db
 from pydantic import BaseModel
@@ -12,7 +12,15 @@ router = APIRouter()
 
 @router.get("/")
 def home():
-    return {"msg": "API Banco de Oportunidades funcionando!"}
+    return {"msg": "Bem vindo a API Banco de Oportunidades"}
+
+
+@router.post("/login")
+def login(data: LoginData, db: Session = Depends(get_db)):
+    usuario = db.query(Usuario).filter(Usuario.email == data.email).first()
+    if not usuario or usuario.senha_hash != data.senha_hash:
+        raise HTTPException(status_code=401, detail="E-mail ou senha inválidos")
+    return {"msg": "Login realizado com sucesso", "id": usuario.idUsuario, "nome": usuario.nome}
 
 # ================================== CRUD USUARIOS =================================
 
@@ -45,6 +53,18 @@ def create_usuario(usuario: CreateUsuario, db: Session = Depends(get_db)):
         cidade=usuario.cidade,
         uf=usuario.uf
     )
+
+    # Verificação simples de email, CPF/CNPJ e nome únicos
+    if (novo_usuario.email == db.query(Usuario).filter(Usuario.email == usuario.email).first()):
+        return {"msg": "Erro: Email já cadastrado."}
+    
+    if (novo_usuario.cpf_cnpj == db.query(Usuario).filter(Usuario.cpf_cnpj == usuario.cpf_cnpj).first()):
+        return {"msg": "Erro: CPF/CNPJ já cadastrado."}
+    
+    if (novo_usuario.nome == db.query(Usuario).filter(Usuario.nome == usuario.nome).first()):
+        return {"msg": "Erro: Nome de usuário já cadastrado."}
+    # Verificação simples de email, CPF/CNPJ e nome únicos
+
     db.add(novo_usuario)
     db.commit()
     db.refresh(novo_usuario)
