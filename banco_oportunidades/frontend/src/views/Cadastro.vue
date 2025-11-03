@@ -1,5 +1,10 @@
 <script setup>
 import garden2 from '../assets/garden2.png'
+import saloon2 from '../assets/saloon2.png'
+import pintor from '../assets/pintor.png'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+
 import { onMounted, onUnmounted } from 'vue'
 
 onMounted(() => {
@@ -21,10 +26,11 @@ onUnmounted(() => {
 
         <div class="form">
           <div class="input-group">
-            <input type="text" id="username" placeholder="Username" />
+            <input type="email" id="username" placeholder="Digite seu email..."/>
           </div>
           <div class="input-group">
-            <input type="password" id="password" placeholder="Password" />
+            
+            <input type="password" id="password" placeholder="Digite sua senha..." />
           </div>
 
           <a href="#" class="forgot">Esqueceu a senha?</a>
@@ -35,9 +41,8 @@ onUnmounted(() => {
           </div>
 
           <div class="socials">
-            <button class="circle-btn">G</button>
-            <button class="circle-btn"></button>
-            <button class="circle-btn">f</button>
+            <button class="circle-btn"><img width="30" height="30" src="https://img.icons8.com/fluency/48/google-logo.png" alt="google-logo"/></button>
+            
           </div>
 
           <p class="register">
@@ -47,14 +52,46 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <div class="login-right">
-      <div class="illustration">
-  <img :src="garden2" alt="Ilustração" />
-        <p>
-          Encontre empregos facilmente com <b>Nosso App</b>
-        </p>
+     <div class="login-right">
+    <div id="loginCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="illustration">
+            <img :src="garden2"  alt="Ilustração 1" style="width: 500px;" />
+            <p>
+              Descubra uma nova forma de contratar serviços ou oferecer seu talento na sua região. Apoie pequenos empreendedores e ajude a comunidade a crescer. 
+            </p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="illustration">
+            <img :src="pintor"  alt="Ilustração 2" style="width: 500px;" />
+            <p>
+              Encontre oportunidades que combinem com você e faça parte de uma comunidade conectada.
+            </p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="illustration">
+            <img :src="saloon2"  alt="Ilustração 3" style="width: 500px;" />
+            <p>
+              Simples, rápido e feito pra você crescer junto com o seu bairro 🌱
+            </p>
+          </div>
+        </div>
       </div>
+
+      <!-- controles -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#loginCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#loginCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </button>
     </div>
+  </div>
   </div>
 </template>
 
@@ -73,8 +110,8 @@ body.cadastro-page {
 
 
 .container-login {
-  width: 1150px;
-  height: 650px;
+  width: 1250px;
+  height: 800px;
   display: flex;
   border-radius: 25px;
   overflow: hidden;
@@ -117,17 +154,19 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 18px;
+  margin-top: 30px;
 }
 
 .input-group input {
   width: 100%;
   height: 48px;
   border-radius: 30px;
-  border: 1.5px solid #ccc;
+  border: none;
   outline: none;
   padding: 0 18px;
+ box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;;
   font-size: 15px;
-  background-color: #fafafa;
+  background-color: #ffffff;
   transition: 0.2s;
 }
 
@@ -135,6 +174,9 @@ h1 {
   border-color: #7cb78a;
   box-shadow: 0 0 0 3px rgba(124, 183, 138, 0.3);
   background-color: #fff;
+}
+.input-group input:hover{
+  transform: translateY(-2px) scale(1.02);
 }
 
 .forgot {
@@ -151,6 +193,7 @@ h1 {
   border-radius: 30px;
   background-color: #000;
   color: white;
+  margin-top: 10px;
   border: none;
   font-weight: 600;
   cursor: pointer;
@@ -159,6 +202,8 @@ h1 {
 
 .btn-login:hover {
   opacity: 0.85;
+  background-color: #89aa63;
+   transform: translateY(-2px) scale(1.02);
 }
 
 .divider {
@@ -182,7 +227,7 @@ h1 {
 .socials {
   display: flex;
   justify-content: center;
-  gap: 18px;
+
   margin-bottom: 10px;
 }
 
@@ -194,13 +239,17 @@ h1 {
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  background-color: #000;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #ffffff;
   color: white;
   transition: 0.3s;
+  display: flex;          /* adiciona isso */
+  align-items: center;    /* vertical centralizado */
+  justify-content: center; /* horizontal centralizado */
 }
 
 .circle-btn:hover {
-  opacity: 0.85;
+  opacity: 0.45;
 }
 
 .register {
