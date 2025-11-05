@@ -73,15 +73,26 @@ def create_usuario(usuario: CreateUsuario, db: Session = Depends(get_db)):
 #------------------------------------------------------------------------------
 @router.get("/usuarios/{id}")
 def get_usuario(id: int, db: Session = Depends(get_db)):
-    return db.query(Usuario).filter(Usuario.idUsuario == id).first()
+    return db.query(Usuario).filter(Usuario.idUsuarios == id).first()
 #------------------------------------------------------------------------------
 @router.put("/usuarios/{id}")
 def update_usuario(id: int, usuario: dict):
-    return {"msg": "Usuário atualizado", "id": id, "usuario": usuario}
+    from fastapi import Body
+    @router.put("/usuarios/{id}")
+    def update_usuario(id: int, usuario: dict = Body(...), db: Session = Depends(get_db)):
+        usuario_db = db.query(Usuario).filter(Usuario.idUsuarios == id).first()
+        if not usuario_db:
+            return {"msg": "Usuário não encontrado", "id": id}
+        for key, value in usuario.items():
+            if hasattr(usuario_db, key):
+                setattr(usuario_db, key, value)
+        db.commit()
+        db.refresh(usuario_db)
+        return {"msg": "Usuário atualizado", "id": id, "usuario": usuario}
 #------------------------------------------------------------------------------
 @router.delete("/usuarios/{id}")
 def delete_usuario(id: int, db: Session = Depends(get_db)):
-    usuario = db.query(Usuario).filter(Usuario.idUsuario == id).first()
+    usuario = db.query(Usuario).filter(Usuario.idUsuarios == id).first()
     if usuario:
         db.delete(usuario)
         db.commit()
@@ -99,21 +110,17 @@ def get_servicos(db: Session = Depends(get_db)):
 #------------------------------------------------------------------------------
 
 class CreateServico(BaseModel):
-    idServico: str
-    idUsuario: str
-    idCategoria: str
+    Categorias_idCategorias: int
     titulo: str
     descricao: str
-    preco: str
+    preco: float
     cidade: str
     status: str
 
 @router.post("/servicos")
 def create_servico(servico: CreateServico, db: Session = Depends(get_db)):
     novo_servico = Servico(
-        idServico=servico.idServico,
-        idUsuario=servico.idUsuario,
-        idCategoria=servico.idCategoria,
+        Categorias_idCategorias=servico.Categorias_idCategorias,
         titulo=servico.titulo,
         descricao=servico.descricao,
         preco=servico.preco,
@@ -127,15 +134,23 @@ def create_servico(servico: CreateServico, db: Session = Depends(get_db)):
 #------------------------------------------------------------------------------
 @router.get("/servicos/{id}")
 def get_servico(id: int):
-    return {"id": id, "titulo": "Serviço Exemplo", "valor": 100.00}
+    return db.query(Servico).filter(Servico.idServicos == id).first()
 #------------------------------------------------------------------------------
 @router.put("/servicos/{id}")
-def update_servico(id: int, servico: dict):
+def update_servico(id: int, servico: dict, db: Session = Depends(get_db)):
+    servico_db = db.query(Servico).filter(Servico.idServicos == id).first()
+    if not servico_db:
+        return {"msg": "Serviço não encontrado", "id": id}
+    for key, value in servico.items():
+        if hasattr(servico_db, key):
+            setattr(servico_db, key, value)
+    db.commit()
+    db.refresh(servico_db)
     return {"msg": "Serviço atualizado", "id": id, "servico": servico}
 #------------------------------------------------------------------------------
 @router.delete("/servicos/{id}")
 def delete_servico(id: int, db: Session = Depends(get_db)):
-    servico = db.query(Servico).filter(Servico.idServico == id).first()
+    servico = db.query(Servico).filter(Servico.idServicos == id).first()
     if servico:
         db.delete(servico)
         db.commit()
@@ -151,21 +166,17 @@ def get_transacoes(db: Session = Depends(get_db)):
     return db.query(Transacao).all()
 #------------------------------------------------------------------------------
 class CreateTransacao(BaseModel):
-    idTransacao: str
-    idServico: str
-    idCliente: str
-    dataSolicitacao: str
-    valorPago: str
+    Usuarios_idUsuarios: int
+    Servicos_idServicos: int
+    valorPago: float
     status: str
-    avaliacao: str
+    avaliacao: int = None
 
 @router.post("/transacoes")
 def create_transacao(transacao: CreateTransacao, db: Session = Depends(get_db)):
     nova_transacao = Transacao(
-        idTransacao=transacao.idTransacao,
-        idServico=transacao.idServico,
-        idCliente=transacao.idCliente,
-        dataSolicitacao=transacao.dataSolicitacao,
+        Usuarios_idUsuarios=transacao.Usuarios_idUsuarios,
+        Servicos_idServicos=transacao.Servicos_idServicos,
         valorPago=transacao.valorPago,
         status=transacao.status,
         avaliacao=transacao.avaliacao
@@ -177,15 +188,23 @@ def create_transacao(transacao: CreateTransacao, db: Session = Depends(get_db)):
 #------------------------------------------------------------------------------
 @router.get("/transacoes/{id}")
 def get_transacao(id: int, db: Session = Depends(get_db)):
-    return db.query(Transacao).filter(Transacao.idTransacao == id).first()
+    return db.query(Transacao).filter(Transacao.idTransacoes == id).first()
 #------------------------------------------------------------------------------
 @router.put("/transacoes/{id}")
-def update_transacao(id: int, transacao: dict):
+def update_transacao(id: int, transacao: dict, db: Session = Depends(get_db)):
+    transacao_db = db.query(Transacao).filter(Transacao.idTransacoes == id).first()
+    if not transacao_db:
+        return {"msg": "Transação não encontrada", "id": id}
+    for key, value in transacao.items():
+        if hasattr(transacao_db, key):
+            setattr(transacao_db, key, value)
+    db.commit()
+    db.refresh(transacao_db)
     return {"msg": "Transação atualizada", "id": id, "transacao": transacao}
 #------------------------------------------------------------------------------
 @router.delete("/transacoes/{id}")
 def delete_transacao(id: int, db: Session = Depends(get_db)):
-    transacao = db.query(Transacao).filter(Transacao.idTransacao == id).first()
+    transacao = db.query(Transacao).filter(Transacao.idTransacoes == id).first()
     if transacao:
         db.delete(transacao)
         db.commit()
@@ -200,14 +219,12 @@ def get_categorias(db: Session = Depends(get_db)):
     return db.query(Categoria).all()
 #------------------------------------------------------------------------------
 class CreateCategoria(BaseModel):
-    idCategoria: str
     nomeCategoria: str
     descricaoCategoria: str
 
 @router.post("/categorias")
 def create_categoria(categoria: CreateCategoria, db: Session = Depends(get_db)):
     nova_categoria = Categoria(
-        idCategoria=categoria.idCategoria,
         nomeCategoria=categoria.nomeCategoria,
         descricaoCategoria=categoria.descricaoCategoria
     )
@@ -218,15 +235,23 @@ def create_categoria(categoria: CreateCategoria, db: Session = Depends(get_db)):
 #------------------------------------------------------------------------------
 @router.get("/categorias/{id}")
 def get_categoria(id: int, db: Session = Depends(get_db)):
-    return db.query(Categoria).filter(Categoria.idCategoria == id).first()
+    return db.query(Categoria).filter(Categoria.idCategorias == id).first()
 #------------------------------------------------------------------------------
 @router.put("/categorias/{id}")
-def update_categoria(id: int, categoria: dict):
+def update_categoria(id: int, categoria: dict, db: Session = Depends(get_db)):
+    categoria_db = db.query(Categoria).filter(Categoria.idCategorias == id).first()
+    if not categoria_db:
+        return {"msg": "Categoria não encontrada", "id": id}
+    for key, value in categoria.items():
+        if hasattr(categoria_db, key):
+            setattr(categoria_db, key, value)
+    db.commit()
+    db.refresh(categoria_db)
     return {"msg": "Categoria atualizada", "id": id, "categoria": categoria}
 #------------------------------------------------------------------------------
 @router.delete("/categorias/{id}")
 def delete_categoria(id: int, db: Session = Depends(get_db)):
-    categoria = db.query(Categoria).filter(Categoria.idCategoria == id).first()
+    categoria = db.query(Categoria).filter(Categoria.idCategorias == id).first()
     if categoria:
         db.delete(categoria)
         db.commit()
