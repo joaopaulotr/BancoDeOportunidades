@@ -4,6 +4,8 @@ import saloon2 from '../assets/saloon2.png'
 import pintor from '../assets/pintor.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import { useRouter } from 'vue-router'
+
 
 import { onMounted, onUnmounted } from 'vue'
 
@@ -13,6 +15,11 @@ onMounted(() => {
 onUnmounted(() => {
   document.body.classList.remove('cadastro-page')
 })
+
+const router = useRouter()
+function login() {
+  router.push('/home')
+}
 </script>
 
 <template>
@@ -34,7 +41,7 @@ onUnmounted(() => {
           </div>
 
           <a href="#" class="forgot">Esqueceu a senha?</a>
-          <button class="btn-login">Login</button>
+          <button class="btn-login" @click="login">Login</button>
 
           <div class="divider">
             <span>ou continue com</span>
