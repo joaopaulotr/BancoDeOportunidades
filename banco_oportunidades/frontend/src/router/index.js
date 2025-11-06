@@ -7,8 +7,9 @@ import Perfil from '../views/Perfil.vue'
 const routes = [
   { path: '/', name: 'Cadastro', component: Cadastro },
   { path: '/home', name: 'Home', component: Home },
-  { path: '/servicos', name: 'Servicos', component: Servicos },
-  { path: '/perfil', name: 'Perfil', component: Perfil }
+  { path: '/perfil', name: 'Perfil', component: Perfil },
+  { path: '/servicos/:categorias', name: 'Servicos', component: Servicos }
+
 ]
 
 const router = createRouter({

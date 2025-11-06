@@ -25,7 +25,7 @@ const cards = [
 
 
 
-const scrollAmount = 260 // largura card + gap
+const scrollAmount = 260
 
 const scrollLeft = () => {
   track.value.scrollBy({ left: -scrollAmount, behavior: "smooth" })
@@ -36,16 +36,32 @@ const scrollRight = () => {
 }
 </script>
 <template>
+ <section class="bg-white py-16 sm:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+                    Encontre serviços e profissionais de confiança no seu bairro.
+                </h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-10">
+                    Conectamos profissionais qualificados a quem busca serviços, fortalecendo a economia da nossa região.
+                </p>
+              
+                <div class="max-w-xl mx-auto">
+                    <div class="relative flex items-center">
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
   <div class="titulo-categoria">Categorias</div>
   <div class="carousel">
 
     <button class="btn-prev" @click="scrollLeft">‹</button>
 
     <div class="carousel-track" ref="track">
-     <div class="card" v-for="(item, i) in cards" :key="i">
-  <img :src="item.img" class="card-icon" alt="">
-  <span class="label">{{ item.name }}</span>
-</div>
+      <div class="card" v-for="(item, i) in cards" :key="i" @click="router.push({name: 'Servicos',params: { categorias: item.name.toLowerCase().replace(/ /g, '') } })">
+        <img :src="item.img" class="card-icon" alt="">
+        <span class="label">{{ item.name }}</span>
+      </div>
     </div>
 
     <button class="btn-next" @click="scrollRight">›</button>
@@ -55,6 +71,10 @@ const scrollRight = () => {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Coiny&family=Momo+Trust+Display&family=Momo+Trust+Sans:wght@200..800&family=Paytone+One&display=swap');
+
+ html {
+            scroll-behavior: smooth;
+        }
 
 .carousel {
   display: flex;
@@ -95,9 +115,45 @@ const scrollRight = () => {
 }
 
 
-.card:hover {
+.card:nth-child(1):hover {
   opacity: 0.85;
-  background-color: #d8e2cd;
+  background-color: #c1d68879;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.card:nth-child(2):hover {
+  opacity: 0.85;
+  background-color: #d196178e;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.card:nth-child(3):hover {
+  opacity: 0.85;
+  background-color: #d117b24b;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.card:nth-child(4):hover {
+  opacity: 0.85;
+  background-color: #6fc7dd9c;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.card:nth-child(5):hover {
+  opacity: 0.85;
+  background-color: #9a98fa86;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.card:nth-child(6):hover {
+  opacity: 0.85;
+  background-color: #17d1a367;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.card:nth-child(7):hover {
+  opacity: 0.85;
+  background-color: #e2613a88;
   transform: translateY(-2px) scale(1.02);
 }
 
@@ -129,7 +185,6 @@ const scrollRight = () => {
   padding: 8px 18px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 999px;
-  /* deixa oval */
   font-size: 16px;
   color: #333;
 }
@@ -142,27 +197,18 @@ const scrollRight = () => {
 }
 
 .card-icon {
-  width: 60px;   /* ajustável */
-  height: 60px;  /* ajustável */
+  width: 60px;
+  height: 60px;
   object-fit: contain;
 }
 
 .label {
-   font-family: "Momo Trust Sans", sans-serif;
+  font-family: "Momo Trust Sans", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   font-size: 16px;
   text-transform: capitalize;
   font-weight: 600;
   color: #000000;
-}
-
-.imgs img {
- transition: 0.3s;
-}
-
-.imgs img:nth-child(1):hover {
-  transform: scale(1.1);
-  background-color: #9cd885 ;
 }
 </style>
