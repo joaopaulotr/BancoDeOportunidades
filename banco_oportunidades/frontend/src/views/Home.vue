@@ -2,17 +2,25 @@
 import { useRouter } from 'vue-router'
 const router = useRouter()
 import { ref } from "vue"
+import jardinagem from "../assets/jardinagem.png"
+import limpeza from "../assets/limpeza.png"
+import pintura from "../assets/pintura.png"
+import eletricista from "../assets/eletricista.png"
+import pedreiro from "../assets/pedreiro.png"
+import baba from "../assets/baba.png"
+import cozinheira from "../assets/cozinheira.png"
 
 const track = ref(null)
 
+
 const cards = [
-  { name: "jardinagem", img: new URL('@/assets/jardinagem.png', import.meta.url).href },
-  { name: "limpeza", img: new URL('@/assets/limpeza.png', import.meta.url).href },
-  { name: "pintura", img: new URL('@/assets/pintura.png', import.meta.url).href },
-  { name: "eletricista", img: new URL('@/assets/eletricista.png', import.meta.url).href },
-  { name: "pedreiro", img: new URL('@/assets/pedreiro.png', import.meta.url).href },
-  { name: "babá", img: new URL('@/assets/baba.png', import.meta.url).href },
-  { name: "cozinheira", img: new URL('@/assets/cozinheira.png', import.meta.url).href }
+  { name: "jardinagem", img: jardinagem },
+  { name: "limpeza", img: limpeza },
+  { name: "pintura", img: pintura },
+  { name: "eletricista", img: eletricista },
+  { name: "mestre de obras", img: pedreiro },
+  { name: "babá", img: baba },
+  { name: "cozinheiro", img: cozinheira }
 ]
 
 
@@ -117,9 +125,8 @@ const scrollRight = () => {
   display: flex;
   font-size: 18px;
   width: 125px;
-  background: #f18809;
+  background: #ffffff;
   padding: 8px 18px;
-  border: 3px solid #eb5f07;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 999px;
   /* deixa oval */
@@ -141,9 +148,21 @@ const scrollRight = () => {
 }
 
 .label {
+   font-family: "Momo Trust Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
   font-size: 16px;
   text-transform: capitalize;
   font-weight: 600;
-  color: #4c6b42;
+  color: #000000;
+}
+
+.imgs img {
+ transition: 0.3s;
+}
+
+.imgs img:nth-child(1):hover {
+  transform: scale(1.1);
+  background-color: #9cd885 ;
 }
 </style>
