@@ -8,3 +8,4 @@ import Navbar from './components/Navbar.vue'
     <router-view />  <!-- aqui o Vue mostra Cadastro, Home ou Serviços -->
   </div>
 </template>
+

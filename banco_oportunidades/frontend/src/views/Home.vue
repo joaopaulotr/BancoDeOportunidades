@@ -36,51 +36,77 @@ const scrollRight = () => {
 }
 </script>
 <template>
- <section class="bg-white py-16 sm:py-24">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
-                    Encontre serviços e profissionais de confiança no seu bairro.
-                </h1>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-10">
-                    Conectamos profissionais qualificados a quem busca serviços, fortalecendo a economia da nossa região.
-                </p>
-              
-                <div class="max-w-xl mx-auto">
-                    <div class="relative flex items-center">
-                       
-                    </div>
-                </div>
-            </div>
-        </section>
-  <div class="titulo-categoria">Categorias</div>
-  <div class="carousel">
+<section class="prof flex flex-col items-center justify-center text-center py-20" style="background-color: white; height: 160px; margin-top: 200px;">
+<div class="propaganda">
+<h1 class="titulo1 mb-6">
+        Encontre serviços e profissionais de confiança no seu bairro.
+      </h1>
+      <p class="text-lg text-gray-600 max-w-4xl mx-auto mb-10" style="font-size: 18px">
+        Conectamos profissionais qualificados a quem busca serviços, fortalecendo a economia da sua região.
+      </p>
+</div>
+      
+      
+  </section>
+<section id="categorias-sec" class="categorias-sec">
+  <div class="categorias-wrapper">
 
-    <button class="btn-prev" @click="scrollLeft">‹</button>
+    <div class="titulo-categoria">Categorias</div>
 
-    <div class="carousel-track" ref="track">
-      <div class="card" v-for="(item, i) in cards" :key="i" @click="router.push({name: 'Servicos',params: { categorias: item.name.toLowerCase().replace(/ /g, '') } })">
-        <img :src="item.img" class="card-icon" alt="">
-        <span class="label">{{ item.name }}</span>
+    <div class="carousel">
+      <button class="btn-prev" @click="scrollLeft">‹</button>
+
+      <div class="carousel-track" ref="track">
+        <div class="card" v-for="(item, i) in cards" :key="i"
+          @click="router.push({ name: 'Servicos', params: { categorias: item.name.toLowerCase().replace(/ /g, '') } })">
+          <img :src="item.img" class="card-icon" alt="">
+          <span class="label">{{ item.name }}</span>
+        </div>
       </div>
+
+      <button class="btn-next" @click="scrollRight">›</button>
     </div>
 
-    <button class="btn-next" @click="scrollRight">›</button>
   </div>
+</section>
 
+        <section id="cadastro-profissional" class="cadastro-profissional" style="background-color: white">
+           <div class="cadastro-wrapper">
+  <div class="card-profissional">
+                    <div>
+                        <h2 style="font-size: 30px;">
+                            Você é um prestador de serviço?
+                        </h2>
+                        <p class="text-blue-100 text-lg max-w-lg">
+                            Cadastre-se no Banco de Oportunidades Locais e encontre novos clientes no seu próprio bairro.
+                        </p>
+                    </div>
+                    <div class="mt-6 md:mt-0 md:ml-6 flex-shrink-0">
+                        <a href="#" class="bg-white text-blue-600 px-6 py-3 rounded-full font-bold text-lg hover:bg-gray-100 transition duration-300">
+                            Quero me cadastrar
+                        </a>
+                    </div>
+                </div>
+           </div>
+              
+          
+        </section>
 </template>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Coiny&family=Momo+Trust+Display&family=Momo+Trust+Sans:wght@200..800&family=Paytone+One&display=swap');
 
- html {
-            scroll-behavior: smooth;
-        }
+html {
+  scroll-behavior: smooth;
+}
 
 .carousel {
   display: flex;
   align-items: center;
   gap: 10px;
-  width: 100%;
+  width: 1200px;
+    justify-content: center;
+
 }
 
 .carousel-track {
@@ -119,6 +145,7 @@ const scrollRight = () => {
   opacity: 0.85;
   background-color: #c1d68879;
   transform: translateY(-2px) scale(1.02);
+
 }
 
 .card:nth-child(2):hover {
@@ -177,13 +204,14 @@ const scrollRight = () => {
   font-family: "Momo Trust Sans", sans-serif;
   font-weight: bolder;
   text-align: start;
-  margin-left: 50px;
+   margin-right: 980px;   
+  margin-bottom: 8px;
   display: flex;
   font-size: 18px;
   width: 125px;
   background: #ffffff;
   padding: 8px 18px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
   border-radius: 999px;
   font-size: 16px;
   color: #333;
@@ -206,9 +234,65 @@ const scrollRight = () => {
   font-family: "Momo Trust Sans", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  margin-top: 18px;
   font-size: 16px;
   text-transform: capitalize;
   font-weight: 600;
-  color: #000000;
+  color: #111a3f;
 }
+
+.categorias-sec {
+  width: 100%;
+  background: rgb(241, 248, 255); 
+  height: 360px;
+  padding-top: 30px;
+}
+
+.categorias-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+   align-items: center;
+  justify-content: center;
+}
+
+.propaganda {
+ position: relative;
+ bottom: 12px;
+ 
+}
+.titulo1{
+ font-family: "Momo Trust Sans", sans-serif;
+ font-size: 45px;
+ font-weight: 700;
+}
+
+.card-profissional {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #f9f9f9; 
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  max-width: 600px; 
+  width: 100%; 
+}
+
+.cadastro-profissional {
+  width: 100%;
+  background: rgb(241, 248, 255); 
+  padding-top: 30px;
+}
+
+.cadastro-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+   align-items: center;
+  justify-content: center;
+}
+
 </style>

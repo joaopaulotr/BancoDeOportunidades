@@ -2,13 +2,13 @@
   <nav class="navbar fixed-top">
     <div class="nav-content">
 
-      <!-- LOGO -->
+      
       <router-link to="/home" class="logo-wrap">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" class="logo" alt="logo">
       </router-link>
 
-      <!-- SEARCH -->
-      <form class="search-center">
+      
+      <form class="search-start">
         <div class="search-wrapper">
           <input class="search-input" type="search" placeholder="pesquisar...">
           <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0,0,256,256">
@@ -19,20 +19,14 @@
         </div>
       </form>
 
-      <!-- LINKS -->
-      <ul class="nav-links">
-        <li><router-link to="/home">home</router-link></li>
-        <li><router-link to="/servicos">serviços</router-link></li>
-        <li><a href="#categorias">categorias</a></li>
-        <li><a href="#sou-profissional">sou profissional</a></li>
-        <li><a href="#como-funciona">como funciona</a></li>
-      </ul>
-
-      <!-- PERFIL -->
+      <div class="nav-links">
+        <router-link to="/home">home</router-link>
+        <router-link to="/servicos">serviços</router-link>
+        <a href="#categorias-sec">categorias</a>
+        <a href="#sou-profissional">sou profissional</a>
       <router-link to="/perfil">
-        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="perfil" class="perfil-icon">
-      </router-link>
-
+        <img src="https://img.icons8.com/fluency-systems-regular/48/user-male-circle--v1.png" alt="perfil" class="perfil-icon">
+      </router-link>    </div>
     </div>
   </nav>
 </template>
@@ -57,10 +51,11 @@
   cursor: pointer;
 }
 
-.search-center {
+.search-start {
   flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: start;
+  margin-left: 40px;
 }
 
 .search-wrapper {
@@ -92,8 +87,8 @@
 }
 
 .nav-links a, .nav-links .router-link-active, .nav-links .router-link-exact-active {
-  font-size: 14px;
-  color: #333;
+  font-size: 16px;
+  color: #1b1b1b;
   text-transform: lowercase;
   text-decoration: none;
 }
@@ -103,8 +98,8 @@
 }
 
 .perfil-icon {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   cursor: pointer;
 }
