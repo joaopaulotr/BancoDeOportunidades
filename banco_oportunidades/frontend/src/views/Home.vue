@@ -74,7 +74,7 @@ const scrollRight = () => {
            <div class="cadastro-wrapper">
   <div class="card-profissional">
                     <div>
-                        <h2 style="font-size: 30px;">
+                        <h2 style="font-size: 30px; color: white;">
                             Você é um prestador de serviço?
                         </h2>
                         <p class="text-blue-100 text-lg max-w-lg">
@@ -126,8 +126,8 @@ html {
 }
 
 .card {
-  min-width: 220px;
-  height: 220px;
+  min-width: 230px;
+  height: 230px;
   background: white;
   border-radius: 20px;
   border: none;
@@ -244,7 +244,7 @@ box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
 .categorias-sec {
   width: 100%;
   background: rgb(241, 248, 255); 
-  height: 360px;
+  height: 380px;
   padding-top: 30px;
 }
 
@@ -269,22 +269,23 @@ box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
 
 .card-profissional {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: #f9f9f9; 
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  max-width: 600px; 
-  width: 100%; 
+  justify-content: space-between;
+  gap: 40px;
+  background-color:  #eb5f07;
+  color: white;
+  padding: 40px 60px;
+  border-radius: 15px;
+ box-shadow: 0 3px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+  width: 50%;
 }
+
 
 .cadastro-profissional {
   width: 100%;
   background: rgb(241, 248, 255); 
-  padding-top: 30px;
+  padding-top: 70px;
+  height: 360px;
 }
 
 .cadastro-wrapper {

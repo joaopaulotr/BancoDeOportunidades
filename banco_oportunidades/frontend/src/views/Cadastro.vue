@@ -106,7 +106,7 @@ function login() {
 @import url('https://fonts.googleapis.com/css2?family=Coiny&family=Momo+Trust+Display&family=Paytone+One&display=swap');
 
 body.cadastro-page {
-  background: linear-gradient(135deg, #c2cfb8 0%, #e3e3e9 100%);
+  background: linear-gradient(135deg, #aec4d8 0%, #e3e3e9 100%);
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -278,7 +278,7 @@ h1 {
 
 .login-right {
   width: 50%;
-  background-color: #e5ebbc;
+  background-color: #d0e2ba;
   display: flex;
   justify-content: center;
   align-items: center;
