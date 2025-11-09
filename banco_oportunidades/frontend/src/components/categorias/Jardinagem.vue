@@ -22,11 +22,35 @@
       <div class="container filter-wrapper">
         <div class="filter-buttons">
           <span class="label">Filtrar por:</span>
-          <button class="btn-filter active">Todos</button>
-          <button class="btn-filter">Paisagismo</button>
-          <button class="btn-filter">Manutenção</button>
-          <button class="btn-filter">Podar Árvores</button>
-          <button class="btn-filter">Plantar Grama</button>
+         <button
+  class="btn-filter"
+  :class="{ active: categoriaSelecionada === 'Todos' }"
+  @click="selecionarCategoria('Todos')"
+>Todos</button>
+
+<button
+  class="btn-filter"
+  :class="{ active: categoriaSelecionada === 'Paisagismo' }"
+  @click="selecionarCategoria('Paisagismo')"
+>Paisagismo</button>
+
+<button
+  class="btn-filter"
+  :class="{ active: categoriaSelecionada === 'Manutenção' }"
+  @click="selecionarCategoria('Manutenção')"
+>Manutenção</button>
+
+<button
+  class="btn-filter"
+  :class="{ active: categoriaSelecionada === 'Podar Árvores' }"
+  @click="selecionarCategoria('Podar Árvores')"
+>Podar Árvores</button>
+
+<button
+  class="btn-filter"
+  :class="{ active: categoriaSelecionada === 'Plantar Grama' }"
+  @click="selecionarCategoria('Plantar Grama')"
+>Plantar Grama</button>
         </div>
         <div>
           <button class="btn-filter advanced">
@@ -48,7 +72,7 @@
           
             <div class="card-list">
               <div class="service-card"
-                v-for="servico in servicos"
+                v-for="servico in servicosFiltrados"
                 :key="servico.id"
                 @click="abrirPopup(servico)"
               >
@@ -111,9 +135,13 @@
             <p><strong>Bairro:</strong> {{ servicoSelecionado.bairro }}</p>
             <p><strong>Cidade:</strong> {{ servicoSelecionado.cidade }}</p>
             <p><strong>Preço:</strong> R$ {{ servicoSelecionado.preco.toFixed(2) }}</p>
-            <button class="btn-inscrever" @click="toggleInscricao">
-              {{ inscrito ? "inscrito" : "se inscrever" }}
-            </button>
+           <button
+  class="btn-inscrever"
+  :class="{ 'inscrito': servicoSelecionado.inscrito }"
+  @click="toggleInscricao(servicoSelecionado)"
+>
+  {{ servicoSelecionado.inscrito ? "inscrito" : "se inscrever" }}
+</button>
           </div>
           <div class="popup-map">
             <iframe :src="servicoSelecionado.mapa" allowfullscreen loading="lazy"></iframe>
@@ -135,7 +163,7 @@ import predioImg from './assets/predio.png'
 export default {
   data() {
     return {
-        
+ busca: '',
       servicos: [
         {
           id: 1,
@@ -196,10 +224,32 @@ export default {
       ],
       popupVisivel: false,
       servicoSelecionado: {},
-      inscrito: false
+      inscrito: false,
+      categoriaSelecionada: 'Todos', 
     }
   },
+
+ computed: {
+  servicosFiltrados() {
+    return this.servicos.filter(servico => {
+      const termo = this.busca.toLowerCase();
+      const buscaMatch =
+        servico.nome.toLowerCase().includes(termo) ||
+        servico.descricao.toLowerCase().includes(termo) ||
+        servico.tags.some(tag => tag.toLowerCase().includes(termo));
+
+      const categoriaMatch =
+        this.categoriaSelecionada === 'Todos' ||
+        servico.tags.includes(this.categoriaSelecionada);
+
+      return buscaMatch && categoriaMatch;
+    });
+  }
+},
   methods: {
+      selecionarCategoria(categoria) {
+    this.categoriaSelecionada = categoria;
+  },
     abrirPopup(servico) {
       this.servicoSelecionado = servico;
       this.popupVisivel = true;
@@ -208,9 +258,9 @@ export default {
       this.popupVisivel = false;
       this.inscrito = false;
     },
-    toggleInscricao() {
-      this.inscrito = !this.inscrito;
-    }
+    toggleInscricao(servico) {
+  servico.inscrito = !servico.inscrito;
+}
   }
 }
 </script>
@@ -327,15 +377,22 @@ export default {
 
 .btn-inscrever {
   margin-top: 12px;
-  background: #eb5f07;
+  background-color: #eb5f07;
   border: none;
   color: white;
   padding: 10px 14px;
   border-radius: 8px;
   cursor: pointer;
 }
-.btn-inscrever:hover { background: #d45606; }
 
+
+btn-inscrever.inscrito {
+  background-color: #16a34a; 
+  color: white;
+}
+.btn-inscrever.inscrito:hover {
+  background-color: #138a35;
+}
 
 .card-status {
   display: flex;

@@ -115,6 +115,7 @@ body.cadastro-page {
   align-items: center;
   padding-top: 20px;
   padding-bottom: 20px;
+
 }
 
 
@@ -123,6 +124,8 @@ body.cadastro-page {
   height: 800px;
   display: flex;
   border-radius: 25px;
+  margin-top:90px;
+  justify-self: center;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(18px);
