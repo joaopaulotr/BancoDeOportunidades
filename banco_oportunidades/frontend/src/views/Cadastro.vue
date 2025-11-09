@@ -127,6 +127,10 @@ body.cadastro-page {
   -webkit-backdrop-filter: blur(18px);
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
   transition: 0.3s ease;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 
@@ -136,11 +140,16 @@ body.cadastro-page {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 40px;
 }
 
 .login-box {
-  width: 75%;
+  width: 100%;
   max-width: 430px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
