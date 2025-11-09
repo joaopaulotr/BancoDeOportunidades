@@ -35,12 +35,15 @@
 <style scoped>
 .navbar {
   background: #fff;
-  box-shadow: 0 2px 12px rgba(0,0,0,.08);
-  padding: 10px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  padding: 12px 0;
+  font-family: "Lexend", sans-serif;
 }
 
 .nav-content {
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -50,6 +53,11 @@
 .logo {
   width: 38px;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 .search-start {
@@ -57,49 +65,61 @@
   display: flex;
   justify-content: start;
   margin-left: 40px;
+  margin-right: 40px;
 }
 
 .search-wrapper {
   position: relative;
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
 }
 
 .search-input {
   width: 100%;
-height: 44px;
-  padding: 8px 40px 9px 18px;
+  height: 46px;
+  padding: 8px 50px 9px 22px;
   border-radius: 40px;
-  border: 1px solid #ddd;
-  background: #ffffff;
-  font-size: 14px;
+  border: 1px solid #e5e7eb;
+  background: #f8f9fa;
+  font-size: 15px;
   font-family: "Lexend", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
+  color: #131452;
+  transition: all 0.2s ease;
 }
 
- .search-input:focus {
-  box-shadow: 0 0 0 3px rgba(240, 147, 7, 0.411);
+.search-input:focus {
+  background: #fff;
+  border-color: #eb5f07;
+  box-shadow: 0 0 0 4px rgba(235, 95, 7, 0.15);
   outline: none; 
 }
 
-.search-input::placeholder{
-color: #bbb;
+.search-input::placeholder {
+  color: #9ca3af;
+  font-weight: 300;
 }
 
 
 .circulo-search {
   position: absolute;
-  right: 8px;
+  right: 6px;
   top: 50%;
   transform: translateY(-50%);
-  width: 32px; 
-  height: 32px;
+  width: 34px; 
+  height: 34px;
   border-radius: 50%;
   background-color: #eb5f07;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.circulo-search:hover {
+  background-color: #d45506;
+  transform: translateY(-50%) scale(1.05);
 }
 
 .search-icon {
@@ -110,25 +130,44 @@ color: #bbb;
 
 .nav-links {
   display: flex;
-  gap: 18px;
+  gap: 32px;
   align-items: center;
 }
 
-.nav-links a, .nav-links .router-link-active, .nav-links .router-link-exact-active {
-  font-size: 16px;
-  color: #1b1b1b;
-  text-transform: lowercase;
+.nav-links a {
+  font-size: 15px;
+  color: #131452;
   text-decoration: none;
+  font-weight: 500;
+  text-transform: capitalize;
+  transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
-  color: #000;
+  color: #eb5f07;
+}
+
+.nav-links .router-link-active {
+  color: #eb5f07;
+  font-weight: 600;
+}
+
+.nav-links a[href="#sou-profissional"] {
+  color: #eb5f07;
+  font-weight: 600;
 }
 
 .perfil-icon {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  padding: 1px;
+}
+
+.perfil-icon:hover {
+  opacity: 1;
 }
 </style>
