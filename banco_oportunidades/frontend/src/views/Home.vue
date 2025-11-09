@@ -9,6 +9,9 @@ import eletricista from "../assets/eletricista.png"
 import pedreiro from "../assets/pedreiro.png"
 import baba from "../assets/baba.png"
 import cozinheira from "../assets/cozinheira.png"
+import costureira from "../assets/costureiraPessoa.png"
+import pintorPessoa from "../assets/pintorPessoa.png"
+import jardimPessoa from "../assets/jardimPessoa.png"
 
 const track = ref(null)
 
@@ -162,7 +165,9 @@ encontre novos clientes no seu próprio bairro.
     <div class="featured-grid">
 
       <div class="featured-card">
-        <div class="featured-photo" style="background-color:#ebf8ff;color:#3182ce;">foto profissional</div>
+        <div class="featured-photo">
+          <img :src="pintorPessoa" alt="Carlos Alberto - Pintor">
+        </div>
         <div class="featured-content">
           <div class="featured-head">
             <h3 class="featured-name">Carlos alberto</h3>
@@ -178,7 +183,9 @@ encontre novos clientes no seu próprio bairro.
       </div>
 
       <div class="featured-card">
-        <div class="featured-photo" style="background-color:#e6fffa;color:#34a199;">foto profissional</div>
+        <div class="featured-photo">
+          <img :src="costureira" alt="Maria da Silva - Costureira">
+        </div>
         <div class="featured-content">
           <div class="featured-head">
             <h3 class="featured-name">Maria da silva</h3>
@@ -194,7 +201,9 @@ encontre novos clientes no seu próprio bairro.
       </div>
 
       <div class="featured-card">
-        <div class="featured-photo" style="background-color:#fff5eb;color:#f6ad55;">foto profissional</div>
+        <div class="featured-photo">
+          <img :src="jardimPessoa" alt="Jardel & Filhos - Jardinagem">
+        </div>
         <div class="featured-content">
           <div class="featured-head">
             <h3 class="featured-name">Jardel & Filhos</h3>
@@ -679,12 +688,22 @@ box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
 }
 
 .featured-photo {
-  height: 150px;
+  height: 300px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 600;
-  font-size: 18px;
+  background: #f8f9fa;
+  overflow: hidden;
+}
+
+.featured-photo img {
+  max-width: 100%;
+  max-height: 115%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  padding: 5px;
 }
 
 .featured-content {
