@@ -53,7 +53,7 @@ function login() {
           </div>
 
           <p class="register">
-            Sem cadastro? <a href="#" class="link">Registre-se agora</a>
+            Sem cadastro? <router-link to="/cadastro" >Registre-se agora</router-link>
           </p>
         </div>
       </div>
@@ -90,7 +90,7 @@ function login() {
         </div>
       </div>
 
-      <!-- controles -->
+      
       <button class="carousel-control-prev" type="button" data-bs-target="#loginCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       </button>
