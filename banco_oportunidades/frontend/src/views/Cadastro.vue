@@ -109,10 +109,12 @@ body.cadastro-page {
   background: linear-gradient(135deg, #aec4d8 0%, #e3e3e9 100%);
   margin: 0;
   padding: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 
