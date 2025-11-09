@@ -22,8 +22,8 @@
 
       <div class="nav-links">
         <router-link to="/home">home</router-link>
-        <router-link to="/servicos">serviços</router-link>
         <a href="#categorias-sec">categorias</a>
+         <a href="#como-funciona">contratar</a>
         <a href="#sou-profissional">sou profissional</a>
       <router-link to="/perfil">
         <img src="https://img.icons8.com/fluency-systems-regular/48/user-male-circle--v1.png" alt="perfil" class="perfil-icon">

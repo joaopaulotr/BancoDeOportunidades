@@ -6,9 +6,9 @@
       <div class="container">
      
         <nav class="breadcrumbs">
-          <a href="index.html">Início</a>
+            <router-link to="/home">Início</router-link>
           <span class="mx-2">&gt;</span>
-          <a href="index.html#servicos">Serviços</a>
+         <router-link to="/home">Categorias</router-link>
           <span class="mx-2">&gt;</span>
           <span>Jardinagem</span>
         </nav>
@@ -44,7 +44,7 @@
 
         
           <div class="main-column">
-            <h2>Mostrando {{ servicos.length }} serviços disponíveis de jardinagem</h2>
+            <h2>Mostrando {{ servicos.length }} serviços disponíveis em jardinagem</h2>
           
             <div class="card-list">
               <div class="service-card"
@@ -59,7 +59,7 @@
                       <h3>{{ servico.nome }}</h3>
                       <div class="card-status" :class="servico.status === 'ativo' ? 'status-ativo' : 'status-inativo'">
                         <span class="status-bolinha"></span>
-                        <span>{{ servico.status || 'inativo' }}</span> <!-- Garante um fallback -->
+                        <span>{{ servico.status || 'inativo' }}</span> 
                       </div>
                     </div>
                     <div class="card-info">
@@ -127,15 +127,21 @@
 
 
 <script>
+import paisagismoImg from './assets/paisagismo.png'
+import gramaImg from './assets/grama.png'
+import podaImg from './assets/poda.png'
+import predioImg from './assets/predio.png'
+
 export default {
   data() {
     return {
+        
       servicos: [
         {
           id: 1,
           nome: "Paisagismo residencial",
           descricao: "Design completo de jardim com plantas selecionadas",
-          imagem: "https://placehold.co/500x300/9ccc65/fff?text=paisagismo",
+           imagem: paisagismoImg,
           distancia: 1.2,
           rua: "Rua das Flores, 145",
           bairro: "Zona 3",
@@ -149,7 +155,7 @@ export default {
           id: 2,
           nome: "Manutenção de jardim em prédio",
           descricao: "Poda, limpeza e cuidado contínuo",
-          imagem: "https://placehold.co/500x300/7cb342/fff?text=manutenção",
+          imagem: predioImg,
           distancia: 0.9,
           rua: "Rua Neo alves Martins, 80",
           bairro: "Centro",
@@ -163,7 +169,7 @@ export default {
           id: 3,
           nome: "Plantio de grama",
           descricao: "Nivelamento de solo e aplicação de grama",
-          imagem: "https://placehold.co/500x300/558b2f/fff?text=grama",
+          imagem: gramaImg,
           distancia: 2.3,
           rua: "Rua Prudente de Morais, 210",
           bairro: "Zona 5",
@@ -177,7 +183,7 @@ export default {
           id: 4,
           nome: "Poda de árvores",
           descricao: "Poda de segurança e modelagem de copa",
-          imagem: "https://placehold.co/500x300/6b8e23/fff?text=poda",
+          imagem: podaImg,
           distancia: 3.8,
           rua: "Avenida Mandacaru, 33",
           bairro: "Mandacaru",
@@ -210,22 +216,21 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Coiny&family=Lexend:wght@100..900&family=Momo+Trust+Display&family=Momo+Trust+Sans:wght@200..800&family=Paytone+One&display=swap');
 
-
-
-/* Container (do servicos.html) */
 .container {
   width: 100%;
   max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1rem;
+  font-family: "Lexend", sans-serif;
   padding-right: 1rem;
 }
 
-.header { text-align: center; margin-bottom: 40px; }
+.header { text-align: center; margin-bottom: 40px; color: #111a3f;; }
 .header h1 { font-size: 30px; }
-.header p { color: #555; }
+.header p { color: #111a3f; }
 
 .card-list {
   display: flex;
@@ -265,12 +270,12 @@ export default {
 
 
 
-.card-info { display: flex; flex-wrap: wrap; gap: 1rem; font-size: .875rem; color: var(--cor-texto-secundario); margin: 0.5rem 0; }
+.card-info { display: flex; flex-wrap: wrap; gap: 1rem; font-size: .875rem; margin: 0.5rem 0; }
 .info-distance { color: #15803d; font-weight: 600; }
 .info-distance span { font-weight: 700; }
 .info-verified { color: #2563eb; font-weight: 500; }
 
-.card-description { font-size: .875rem; margin: .5rem 0 1rem; color: var(--cor-texto-secundario); }
+.card-description { font-size: .875rem; margin: .5rem 0 1rem; color: #888888 }
 
 .card-footer { 
   display: flex; 
@@ -302,6 +307,7 @@ export default {
   width: 90%;
   max-width: 750px;
   padding: 26px;
+   font-family: "Lexend", sans-serif;
   border-radius: 14px;
   position: relative;
 }
@@ -351,27 +357,30 @@ export default {
 
 
 .title-section {
+    margin-top: 60px;
   background-color: #ffffff;
+  
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   padding: 2rem 0;
 }
 .breadcrumbs {
   font-size: 0.875rem;
-  color: var(--cor-texto-secundario);
+  color: #a5a1a1;
   margin-bottom: 0.5rem;
 }
-.breadcrumbs a:hover { color: #d45606 }
+.breadcrumbs a:hover {  color: #111a3f;}
 .breadcrumbs span:last-child {
   font-weight: 500;
-  color: #1059be;
+color: #d45606;
 }
 .title-section h1 {
   font-size: 2.25rem;
   font-weight: 900;
+  color: #111a3f;
 }
 .title-section p {
   font-size: 1.125rem;
-  color: var(--cor-texto-secundario);
+ color: #111a3f;
   margin-top: 0.5rem;
 }
 
@@ -393,11 +402,12 @@ export default {
   gap: 0.5rem;
   overflow-x: auto;
   padding: 0.5rem 0;
+  color: #111a3f;
 }
 .filter-buttons .label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--cor-texto-secundario);
+  color: #111a3f;
   margin-right: 0.5rem;
   display: none; 
 }
@@ -407,8 +417,7 @@ export default {
   font-size: 0.875rem;
   font-weight: 500;
   background-color: #ffffff;
-  color: var(--cor-texto-secundario);
-  border: 1px solid var(--cor-borda);
+  border: none;
   transition: background-color 0.2s;
   white-space: nowrap;
 }
@@ -467,7 +476,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--cor-texto-secundario);
+  color: #111a3f;
   text-align: center;
   padding: 1rem;
 }
@@ -495,6 +504,7 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    color: #a3a3a3;
   }
   .card-tags {
     margin-bottom: 0;
