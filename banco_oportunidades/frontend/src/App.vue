@@ -5,7 +5,7 @@ import Navbar from './components/Navbar.vue'
 <template>
   <div id="app">
     <Navbar />
-    <router-view />  <!-- aqui o Vue mostra Cadastro, Home ou Serviços -->
+    <router-view />  
   </div>
 </template>
 
